@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db:
+    container_name: one-bit-flix-database
+    image: postgres:9.6
+    volumes:
+      - ./tmp/data/postgresql:/postgresql
+      - ./tmp/data/postgresql:/var/lib/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - PG_USERNAME=postgres
+      - PG_PASSWORD=
+      - PG_HOST=one-bit-flix-database
+
+  web:
+    container_name: one-bit-flix-backend
+    build: .
+    volumes:
+      - .:/one-bit-flix
+      - bundle-cache:/bundle-cache
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  bundle-cache:
