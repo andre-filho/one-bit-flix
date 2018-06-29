@@ -12,10 +12,10 @@ RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
 
 WORKDIR /one-bit-flix
 
-ENV BUNDLE_PATH /bundle-cache
-
 COPY . /one-bit-flix
 
 RUN chmod +x start-dev.sh
+
+RUN bundle install
 
 ENTRYPOINT ["./start-dev.sh"]
